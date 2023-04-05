@@ -1,17 +1,14 @@
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react"
 import { CodeSnippet } from "../components/code-snippet";
 import { PageLayout } from "../components/page-layout";
 
 export const ProfilePage = () => {
-  const user = {
-    nickname: "Customer",
-    name: "One Customer",
-    picture: "https://cdn.auth0.com/blog/hello-auth0/auth0-user.png",
-    updated_at: "2021-05-04T21:33:09.415Z",
-    email: "customer@example.com",
-    email_verified: false,
-    sub: "auth0|12345678901234567890",
-  };
+  const { user } = useAuth0()
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <PageLayout>
@@ -39,7 +36,7 @@ export const ProfilePage = () => {
             </div>
             <div className="profile__details">
               <CodeSnippet
-                title="User Profile Object"
+                title="Decoded ID Token"
                 code={JSON.stringify(user, null, 2)}
               />
             </div>
